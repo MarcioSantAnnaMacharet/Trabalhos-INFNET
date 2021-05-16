@@ -1,0 +1,78 @@
+package br.edu.infnet;
+
+import java.util.Scanner;
+
+public class NotasAlunos{
+
+	private static String[] nomes;
+	private static float[] av1;
+	private static float[] av2;
+	
+	public static int indice;
+	
+	private static final int UNDS = 100; 
+	
+	public static void main(String[] args){
+		Scanner in = new Scanner(System.in);
+		
+			nomes = new String[UNDS];
+			av1 = new float[UNDS];
+			av2 = new float[UNDS];
+			
+			String opcao = null;
+			
+			do {
+				System.out.println("[1] Registrar as notas de um novo aluno.");
+				System.out.println("[2] Consultar boletim de um aluno.");
+				System.out.println("[3] Consultar notas da turma.");
+				System.out.println("[4] Sair.");
+				
+				System.out.println("Informe a opção desejada:");
+				opcao = in.next();
+				
+				switch (opcao) {
+				
+				case "1":
+					
+					if(indice < UNDS) {
+						
+						System.out.println("Informe o seu nome: ");
+						nomes[indice] = in.next();
+						
+						System.out.println("Informe a nota de sua AV1: ");
+						av1[indice] = in.nextFloat();
+						
+						System.out.println("Informe a nota da sua AV2: ");
+						av2[indice] = in.nextFloat();
+						
+						System.out.println("Estudante cadastrado");
+						System.out.println("Este é número de matricula: " + indice);
+						
+						indice++; 
+					} else {
+						System.out.println("Não há vagas para novos cadastros !");						
+					}
+				break;
+				
+				case "2":
+					System.out.println("Informe o número de registro:");
+				
+					System.out.println(nomes);
+					System.out.println(av1);
+					System.out.println(av2);
+	
+				break;
+				
+				case "3":
+					
+					System.out.println("Listagem de alunos:");
+					System.out.println(indice);	
+					break;	
+			
+			}
+
+		}while(!opcao.equals("4"));
+			in.close();
+
+	}
+}

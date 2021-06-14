@@ -1,0 +1,115 @@
+package br.edu.infnet;
+
+import java.util.Scanner;
+
+public abstract class NotasAlunos{
+
+	private static String[] nomes;
+	private static float[] av1;
+	private static float[] av2;
+
+	public static int indice;
+
+	private static final int UNDS = 100; 
+
+	public static void main(String[] args){
+		Scanner in = new Scanner(System.in);
+
+			nomes = new String[UNDS];
+			av1 = new float[UNDS];
+			av2 = new float[UNDS];
+
+			String opcao = null;
+
+			do {
+				System.out.println("[1] Registrar as notas de um novo aluno.");
+				System.out.println("[2] Consultar boletim de um aluno.");
+				System.out.println("[3] Consultar notas da turma.");
+				System.out.println("[4] Sair.");
+
+				System.out.println("Informe a opção desejada:");
+				opcao = in.next();
+
+				switch (opcao) {
+
+				case "1":
+
+					if(indice < UNDS) {
+
+						System.out.println("Informe o seu nome: ");
+						nomes[indice] = in.next();
+
+						System.out.println("Informe a nota de sua AV1: ");
+						av1[indice] = in.nextFloat();
+
+						System.out.println("Informe a nota da sua AV2: ");
+						av2[indice] = in.nextFloat();
+
+						System.out.println("Estudante cadastrado.");
+						System.out.println("Este é número de matricula: " + indice);
+
+						indice++; 
+					} else {
+						System.out.println("Não há vagas para novos cadastros !");						
+					}
+				break;
+
+				case "2":
+					System.out.println("Informe o número de registro:");
+					int pos = in.nextInt();
+					
+					if(pos >= 0 && pos < UNDS) {
+						imprimir(pos);
+					}else{
+						System.out.println("Funcionário inexistente!!!");
+					}
+					
+				break;
+
+				case "3":
+					imprimir();
+					break;	
+
+			}
+
+		}while(!opcao.equals("4"));
+			in.close();
+
+	}
+	
+	public static void imprimir(int posicao) {
+		
+		float media = calcularMedia(posicao);
+			
+		System.out.printf("[%d] %s - %.2f - %.2f - %.2f - %s |\n",
+				posicao + 1,  
+				nomes[posicao], 
+				av1[posicao],
+				av2[posicao],
+				media,
+				getSituacao(media)		
+				);
+	}
+	
+	public static void imprimir() {
+		System.out.println("Listagem de alunos:");
+		for(int i = 0; i < UNDS; i++) {
+			imprimir(i);
+		}
+	}
+
+	private static float calcularMedia(int m) {
+		return (av1[m] + av2[m]) / 2;
+				
+	}
+	
+	public static String getSituacao(float calcularMedia) {
+		if(calcularMedia < 4) {
+			return "Reprovado";
+		} else if(calcularMedia > 7) {
+			return "Aprovado";
+		} else {
+			return "Prova Final";
+		}
+	}
+}
